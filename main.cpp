@@ -9,7 +9,7 @@ void testHeap(){
   myHeap.add(std::make_pair(0,"0"));
   myHeap.add(std::make_pair(7,"7"));
   myHeap.add(std::make_pair(10,"10"));
-  
+
   if(myHeap.getNumItems() != 5){
     std::cout << "ERROR: Expected 5 items, but got " << myHeap.getNumItems() << std::endl;
     exit(1);
