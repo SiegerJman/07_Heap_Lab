@@ -1,3 +1,6 @@
+//Justin Reed
+//11/11/14
+//Done with starter code from Dr. Brinkman, and help from cplusplus.com
 #include "Queue.h"
 #include <utility>
 
@@ -30,7 +33,7 @@ private:
   int arrSize;
   int numItems;
   std::pair<Pri, T>* backingArray;
-
+  
   //Grow the backingArray by making a new array of twice the size,
   // and copying over the data
   void grow();
