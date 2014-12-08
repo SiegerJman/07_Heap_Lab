@@ -64,10 +64,7 @@ Heap<Pri, T>::Heap(){
 template<class Pri, class T>
 Heap<Pri, T>::~Heap(){
 	//delete it all
-	while (backingArray != NULL){
-		numItems--;
-		delete &backingArray[numItems];
-	}
+	delete[] backingArray;
 }
 
 template<class Pri, class T>
@@ -77,8 +74,9 @@ void Heap<Pri, T>::grow(){
 	backingArray= new std::pair<Pri, T>[arrSize*2];
 	arrSize = arrSize * 2;
 	for (int i = 0; i < numItems; i++){
-		add(tmp[i]);
+		backingArray[i] = tmp[i];
 	}
+	delete[] tmp;
 }
 
 template<class Pri, class T>
@@ -114,8 +112,8 @@ void Heap<Pri, T>::trickleDown(unsigned long index){
 	int leftBaby = 2 * index + 1;
 	int rightBaby = 2 * index + 2;
 	//determines if we should trickle in the first place
-	if (backingArray[index] > backingArray[rightBaby] || backingArray[index] > backingArray[leftBaby]){
-		if (backingArray[rightBaby] > backingArray[leftBaby] && backingArray[leftBaby].second != ""){
+	if ((backingArray[index].first > backingArray[rightBaby].first&&rightBaby!=numItems)||( backingArray[index].first > backingArray[leftBaby].first&&!leftBaby==numItems)){
+		if (backingArray[rightBaby].first > backingArray[leftBaby].first){
 			std::pair<Pri, T> tmp = backingArray[index];
 			backingArray[index] = backingArray[leftBaby];
 			backingArray[leftBaby] = tmp;
@@ -141,7 +139,6 @@ std::pair<Pri, T> Heap<Pri, T>::remove(){
 	numItems--;
 	std::pair<Pri, T> tmp = backingArray[0];
 	backingArray[0] = backingArray[numItems];
-	backingArray[numItems] = *(new std::pair< Pri, T >) ;
 	trickleDown(0);
 	return tmp;
 }
